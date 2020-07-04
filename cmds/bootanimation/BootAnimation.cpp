@@ -253,14 +253,14 @@ bool BootAnimation::bootVideoVolumeUI(sp<BootVideoListener> listener) {
     int index = mVol;
     int64_t hideVolUIStartTime = -1;
 
-    ALOGD("BootAnimation::playAnimation pcount=%d, animationX=%d, animationY=%d", pcount, animationX, animationY);
+    ALOGD("BootAnimation::playAnimation pcount=%zu, animationX=%d, animationY=%d", pcount, animationX, animationY);
     ALOGD("BootAnimation::playAnimation mWidth=%d,mHeight=%d,animation->width=%d, animation->height=%d", mWidth, mHeight, animation->width,  animation->height);
 
     const Animation::Part& part(animation->parts[0]);
     const size_t fcount = part.frames.size();
     int displayed[fcount];
     memset(displayed, 0, sizeof(displayed));
-    ALOGD("%s, fcount=%d, part.count=%d", __FUNCTION__, fcount, part.count);
+    ALOGD("%s, fcount=%zu, part.count=%d", __FUNCTION__, fcount, part.count);
     glBindTexture(GL_TEXTURE_2D, 0);
     glClearColor(
         part.backgroundColor[0],
@@ -272,7 +272,7 @@ bool BootAnimation::bootVideoVolumeUI(sp<BootVideoListener> listener) {
 
     while(!listener->isPlayCompleted) {
         if (index != mVol) {
-            ALOGD("%s, pcount=%d, mVol=%d, name=%s", __FUNCTION__, pcount, mVol, part.frames[mVol].name.string());
+            ALOGD("%s, pcount=%zu, mVol=%d, name=%s", __FUNCTION__, pcount, mVol, part.frames[mVol].name.string());
             hideVolUIStartTime = elapsedRealtime();
 
             const Animation::Frame& frame(part.frames[mVol]);
