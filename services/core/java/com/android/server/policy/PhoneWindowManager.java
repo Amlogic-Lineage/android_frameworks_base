@@ -1523,7 +1523,9 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 + " count=" + count + " beganFromNonInteractive=" + mBeganFromNonInteractive +
                 " mShortPressOnPowerBehavior=" + mShortPressOnPowerBehavior);
         int definedPowerKey = whichPowerKeyDefinition();
-        if (definedPowerKey == POWER_KEY_SHUTDOWN) {
+        final boolean ddrWindow = SystemProperties.getBoolean("ro.first.boot.ddr.window", false);
+        Slog.d(TAG, "definedPowerKey=" + definedPowerKey + ",ddrWindow=" + ddrWindow);
+        if (definedPowerKey == POWER_KEY_SHUTDOWN || ddrWindow) {
             mPowerManager.shutdown(false,"userrequested",false);
             return;
         }
@@ -2407,7 +2409,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         int longSizeDp = longSize * DisplayMetrics.DENSITY_DEFAULT / density;
 
         // Allow the navigation bar to move on non-square small devices (phones).
-        mNavigationBarCanMove = width != height && shortSizeDp < 600;
+        //mNavigationBarCanMove = width != height && shortSizeDp < 600;
 
         mHasNavigationBar = res.getBoolean(com.android.internal.R.bool.config_showNavigationBar);
 
